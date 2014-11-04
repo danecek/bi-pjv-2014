@@ -20,7 +20,7 @@ public class NumberToken extends Token {
 
     @Override
     public String toString() {
-        return Integer.toString(value) + pos;
+        return String.format("%s(%d)%s", tokenType, value, pos);
     }
 
 }

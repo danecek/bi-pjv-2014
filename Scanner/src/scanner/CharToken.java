@@ -9,19 +9,18 @@ package scanner;
  *
  * @author danecek
  */
-public class StringToken extends Token {
+public class CharToken extends Token {
 
-    String value;
+    char c;
 
-    public StringToken(TokenType tokenType, String value, Position pos) {
-        super(tokenType, pos);
-        this.value = value;
+    public CharToken(char c, Position pos) {
+        super(TokenType.CHAR, pos);
+        this.c = c;
     }
-
 
     @Override
     public String toString() {
-        return super.toString() + "(" + value + ')';
+        return String.format("%S(%c)", super.toString(), c);
     }
 
 }

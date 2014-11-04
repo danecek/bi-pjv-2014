@@ -11,13 +11,13 @@ package scanner;
  */
 public class Token {
 
+    TokenType tokenType;
+    Position pos;
+
     public Token(TokenType tokenType, Position pos) {
         this.tokenType = tokenType;
         this.pos = pos;
     }
-
-    TokenType tokenType;
-    Position pos;
 
     @Override
     public String toString() {
