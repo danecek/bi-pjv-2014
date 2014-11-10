@@ -11,8 +11,8 @@ package scanner;
  */
 public class Token {
 
-    TokenType tokenType;
-    Position pos;
+    private TokenType tokenType;
+    private Position pos;
 
     public Token(TokenType tokenType, Position pos) {
         this.tokenType = tokenType;
@@ -22,6 +22,20 @@ public class Token {
     @Override
     public String toString() {
         return tokenType.toString() + pos;
+    }
+
+    /**
+     * @return the tokenType
+     */
+    public TokenType getTokenType() {
+        return tokenType;
+    }
+
+    /**
+     * @return the pos
+     */
+    public Position getPos() {
+        return pos;
     }
 
 }

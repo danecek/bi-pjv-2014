@@ -71,7 +71,8 @@ public enum TokenType {
     _implements, _protected, _throw, _byte, _else, _import, _public, _throws,
     _case, _enum, _instanceof, _return, _transient, _catch, _extends, _int,
     _short, _try, _char, _final, _interface, _static, _void, _class, _finally,
-    _long, _strictfp, _volatile, _const, _float, _native, _super, _while // ...
+    _long, _strictfp, _volatile, _const, _float, _native, _super, _while, _null,
+    _true, _false// ...
     ;
 
     private TokenType(String text) {

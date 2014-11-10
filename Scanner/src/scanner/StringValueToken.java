@@ -2,7 +2,7 @@ package scanner;
 
 public class StringValueToken extends Token {
 
-    String value;
+    private String value;
 
     public StringValueToken(TokenType tokenType, String value, Position pos) {
         super(tokenType, pos);
@@ -11,7 +11,14 @@ public class StringValueToken extends Token {
 
     @Override
     public String toString() {
-        return String.format("%s(%s)%s", tokenType, value, pos);
+        return String.format("%s(%s)%s", getTokenType(), value, getPos());
+    }
+
+    /**
+     * @return the value
+     */
+    public String getValue() {
+        return value;
     }
 
 }

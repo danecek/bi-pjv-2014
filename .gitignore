@@ -15,3 +15,12 @@ hs_err_pid*
 /kompozice/dist/
 /pytel/nbproject/private/
 /pytel/build/
+/Script/nbproject/private/
+/Script/build/
+/Script/dist/
+/Scanner/nbproject/private/
+/Scanner/build/
+/Scanner/dist/
+/CrossGenerator/nbproject/private/
+/CrossGenerator/build/
+/CrossGenerator/dist/

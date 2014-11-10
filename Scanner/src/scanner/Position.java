@@ -11,8 +11,8 @@ package scanner;
  */
 public class Position {
 
-    int row;
-    int col;
+    private int row;
+    private int col;
 
     public Position(int row, int col) {
         this.row = row;
@@ -22,6 +22,20 @@ public class Position {
     @Override
     public String toString() {
         return String.format("[%d:%d]", row, col);
+    }
+
+    /**
+     * @return the row
+     */
+    public int getRow() {
+        return row;
+    }
+
+    /**
+     * @return the col
+     */
+    public int getCol() {
+        return col;
     }
 
 }

@@ -173,6 +173,9 @@ public class MyScanner {
                             case '\'':
                                 escChar = '\'';
                                 break;
+                            case '\"':
+                                escChar = '\"';
+                                break;
                             case 'n':
                                 escChar = '\n';
                                 break;
