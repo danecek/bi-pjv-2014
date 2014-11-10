@@ -7,13 +7,11 @@ import static scanner.TokenType.*;
 
 public class MyScanner {
 
-    static final char QOUT = (char) 39;
-
-    char actChar = ' ';
-    Reader reader;
+    private char actChar = ' ';
+    private Reader reader;
     private Position actPos;
-    int actRow = 1;
-    int actCol;
+    private int actRow = 1;
+    private int actCol;
 
     public MyScanner(Reader reader) {
         this.reader = reader;
@@ -23,9 +21,8 @@ public class MyScanner {
         return new Token(tokenType, actPos);
     }
 
-    Token nextToken() throws IOException, LexicalException {
+    public Token nextToken() throws IOException, LexicalException {
         for (;;) {
-            skip();
             actPos = new Position(actRow, actCol);
             if (Character.isLetter(actChar)) {
                 return ident();
@@ -34,7 +31,13 @@ public class MyScanner {
                 return num();
             }
             switch (actChar) {
-
+                case '\t':
+                case ' ':
+                case '\n':
+                case '\r': {
+                    nextChar();
+                    break;
+                }
                 case '+': {
                     nextChar();
                     if (actChar == '=') {
@@ -155,12 +158,38 @@ public class MyScanner {
                     nextChar();
                     return createToken(COLON);
                 }
-                case QOUT: {
+                case '\'': {
+                    CharToken t;
                     nextChar();
-                    CharToken t = new CharToken(actChar, actPos);
+                    if (actChar != '\\') {
+                        t = new CharToken(actChar, actPos);
+                    } else {
+                        char escChar;
+                        nextChar();
+                        switch (actChar) {
+                            case '\\':
+                                escChar = '\\';
+                                break;
+                            case '\'':
+                                escChar = '\'';
+                                break;
+                            case 'n':
+                                escChar = '\n';
+                                break;
+                            case 'r':
+                                escChar = '\r';
+                                break;
+                            case 't':
+                                escChar = '\t';
+                                break;
+                            default:
+                                throw new LexicalException("invalid escape", actPos);
+                        }
+                        t = new CharToken(escChar, actPos);
+                    }
                     nextChar();
-                    if (actChar != QOUT) {
-                        throw new LexicalException("invalid character literal", actPos);
+                    if (actChar != '\'') {
+                        throw new LexicalException("invalid character literal:" + actChar, actPos);
                     }
                     nextChar();
                     return t;
@@ -188,7 +217,6 @@ public class MyScanner {
                     nextChar();
                     return createToken(RBRACE);
                 }
-
                 case '(': {
                     nextChar();
                     return createToken(LPAR);
@@ -210,22 +238,6 @@ public class MyScanner {
                 default:
                     throw new LexicalException(String.format("unknown character: %c (%d)", actChar, (int) actChar), actPos);
             }
-        }
-
-    }
-
-    public static void main(String[] args) throws IOException, LexicalException {
-        Reader sr = new FileReader("src/scanner/MyScanner.java");
-
-        MyScanner sc = new MyScanner(sr);
-        for (Token t = sc.nextToken(); t != null; t = sc.nextToken()) {
-            System.out.println(t);
-        }
-    }
-
-    private void skip() throws IOException {
-        while (Character.isWhitespace(actChar)) {
-            nextChar();
         }
     }
 
@@ -285,6 +297,15 @@ public class MyScanner {
         }
         nextChar();
         return new StringValueToken(STRING, sb.toString(), actPos);
+    }
+
+    public static void main(String[] args) throws IOException, LexicalException {
+        Reader sr = new FileReader("src/scanner/MyScanner.java");
+
+        MyScanner sc = new MyScanner(sr);
+        for (Token t = sc.nextToken(); t != null; t = sc.nextToken()) {
+            System.out.println(t);
+        }
     }
 
 }
