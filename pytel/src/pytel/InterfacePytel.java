@@ -10,17 +10,27 @@ package pytel;
  * @author danecek
  */
 public interface InterfacePytel {
+
     void vloz(Object o);
+
     void vyjmi(Object o);
+
     boolean obsahuje(Object o);
+
     int pocet();
+
     void vysypat();
+
     Object[] naPole();
-    void vloz(InterfacePytel druhy);    
+
+    void vloz(InterfacePytel druhy);
+
     boolean plny();
-    
+
     void startIterace();
+
     Object dalsi();
-    boolean jeDalsi();    
-        
+
+    boolean jeDalsi();
+
 }
